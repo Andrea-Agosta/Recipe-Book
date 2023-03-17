@@ -1,3 +1,7 @@
 .max-h {
   max-height: 300px;
 }
+
+.dropdown-menu a {
+  cursor: pointer;
+}
