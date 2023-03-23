@@ -5,3 +5,7 @@
 .dropdown-menu a {
   cursor: pointer;
 }
+
+.my-2 {
+  margin: 20px 0;
+}
