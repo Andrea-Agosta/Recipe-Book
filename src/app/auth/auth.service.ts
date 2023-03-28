@@ -11,15 +11,16 @@ interface AuthResponseData {
 
 @Injectable({ providedIn: 'root'})
 export class AuthService {
-
   constructor(private http: HttpClient) {}
 
   signUp(email: string, password: string) {
-    this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAcqKbwg6hwBRyUMavF8PaWmVFldX_eRBY',
+    console.log('signUp', email, password);
+    return this.http.post<AuthResponseData>('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAcqKbwg6hwBRyUMavF8PaWmVFldX_eRBY',
       {
         email: email,
         password: password,
         returnSecureToken: true,
-      })
+      }
+    );
   }
 }

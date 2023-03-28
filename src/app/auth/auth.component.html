@@ -9,10 +9,10 @@
         <label for="password">Password:</label>
         <input class="form-control" type="password" id="password" ngModel name="password" required minlength="6">
       </div>
+      <div>
+        <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
+        <button class="btn btn-primary" type="button" (click)="onSwitchMode()">{{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
+      </div>
     </form>
-    <div>
-      <button class="btn btn-primary" type="submit" [disabled]="!authForm.valid">{{ isLoginMode ? 'Login' : 'Sign Up' }}</button> |
-      <button class="btn btn-primary" type="button" (click)="onSwitchMode()">{{ isLoginMode ? 'Sign Up' : 'Login' }}</button>
-    </div>
   </div>
 </div>
