@@ -42,4 +42,4 @@ testem.log
 Thumbs.db
 
 .vscode
-/src/configSecret.ts
+/src/enviroments
