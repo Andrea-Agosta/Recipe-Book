@@ -1,4 +1,4 @@
-import {Component, ComponentFactoryResolver, ViewChild} from "@angular/core";
+import {Component, ComponentFactoryResolver, OnDestroy, ViewChild} from "@angular/core";
 import {NgForm} from "@angular/forms";
 import {Observable, Subscription} from "rxjs";
 
@@ -11,7 +11,7 @@ import {PlaceholderDirective} from "../shared/placeholder/placeholder.directive"
   selector: 'app-auth',
   templateUrl: './auth.component.html'
 })
-export class AuthComponent implements onDestroy {
+export class AuthComponent implements OnDestroy {
   isLoginMode: boolean = true;
   isLoading: boolean = false;
   error: string = null;
