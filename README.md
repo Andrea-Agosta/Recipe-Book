@@ -1,27 +1,39 @@
-# RecipeBook
+# Recipe Book App
+This is my first Angular application, created during [
+Angular - The Complete Guide (2023 Edition)
+](https://www.udemy.com/course/the-complete-guide-to-angular-2/) on Udemy.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.4.
+This application is a recipe book that allows users to register an account, login and create their own recipe book. The user can also add ingredients to a shopping list to make it easier to purchase all the necessary ingredients for their recipes.
 
-## Development server
+## Technologies Used
+- Angular
+- Firebase to create a server backend
+- HTML
+- CSS
+- Bootstrap
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Installation
+Clone the repository using the command 
+```bash
+$ git clone https://github.com/Andrea-Agosta/Recipe-Book.git
+```
 
-## Code scaffolding
+Navigate to the root directory of the project in your terminal and to install all the necessary dependencies run:
+```bash
+$ npm install
+```
+to start the application run:
+```bash
+$ ng serve
+```
+Navigate to http://localhost:4200/ in your browser to view the app.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
-
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+## Features
+- User can register a new account
+- User can login with their account
+- User can create new recipes
+- User can view, edit, and delete their own recipes
+- User can add ingredients to their recipe and specify the amount of ingredient required
+- User can add ingredients from their recipe to a shopping list
+- User can view their shopping list and add more ingredients
+- User can log out of their account
