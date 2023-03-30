@@ -37,3 +37,6 @@ Navigate to http://localhost:4200/ in your browser to view the app.
 - User can add ingredients from their recipe to a shopping list
 - User can view their shopping list and add more ingredients
 - User can log out of their account
+
+---
+[Click Here](https://ng-course-recipe-book-d7f4c.web.app/auth) to see the live version.
