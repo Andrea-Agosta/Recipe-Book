@@ -1,7 +1,8 @@
 import {Actions, createEffect, ofType} from "@ngrx/effects";
 import {HttpClient} from "@angular/common/http";
-import {catchError, map, mergeMap, of, switchMap} from "rxjs";
+import {catchError, map, mergeMap, of, switchMap, tap, throwError} from "rxjs";
 import {Injectable} from "@angular/core";
+import {Router} from "@angular/router";
 
 import * as AuthAction from "./auth.actions";
 import {environment} from "../../../enviroments/environment";
@@ -17,6 +18,8 @@ export interface AuthResponseData {
 
 @Injectable()
 export class AuthEffects {
+  authSignup = createEffect(() => this.actions$.pipe(ofType(AuthAction.SIGNUP_START)));
+
   authLogin = createEffect(() => this.actions$.pipe(
     ofType(AuthAction.LOGIN_START),
     switchMap((authData:AuthAction.LoginStart) => {
@@ -29,22 +32,41 @@ export class AuthEffects {
           }
         )
         .pipe(
-          mergeMap(resData => {
+          map(resData => {
             const expirationDate = new Date(new Date().getTime() + +resData.expiresIn * 1000);
-            return of(new AuthAction.Login({
+            return new AuthAction.AuthenticateSuccess({
               email: resData.email,
               userId: resData.localId,
               token: resData.idToken,
               expirationDate: expirationDate
-            }))
+            })
           }),
-          catchError(error => {
-            return of();
+          catchError(errorRes => {
+            let errorMessage = 'An Unknown error occurred';
+            if(!errorRes.error || !errorRes.error.error) {
+              return of(new AuthAction.AuthenticateFail(errorMessage));
+            }
+            switch (errorRes.error.error.message) {
+              case 'EMAIL_EXISTS':
+                errorMessage = 'This email exists already';
+                break;
+              case 'EMAIL_NOT_FOUND':
+                errorMessage = 'This email does not exists';
+                break;
+              case 'INVALID_PASSWORD':
+                errorMessage = 'This password is not correct';
+                break;
+            }
+            return of(new AuthAction.AuthenticateFail(errorMessage));
           })
         )
       }),
     )
   );
 
-  constructor(private actions$: Actions, private http: HttpClient) {}
+  authSuccess = createEffect(() => this.actions$.pipe(ofType(AuthAction.AUTHENTICATE_SUCCESS),
+    tap(() => this.router.navigate(['/'])),
+  ),{dispatch: false});
+
+  constructor(private actions$: Actions, private http: HttpClient, private router:Router) {}
 }

@@ -15,14 +15,14 @@ const initialState: State = {
 
 export const authReducer = (state: State = initialState, action: AuthAction.AuthAction) => {
   switch (action.type) {
-    case AuthAction.LOGIN:
+    case AuthAction.AUTHENTICATE_SUCCESS:
       const user = new User(action.payload.email, action.payload.userId, action.payload.token, action.payload.expirationDate);
       return {...state, user: user, authError: null, loading: false};
     case AuthAction.LOGOUT:
       return {...state, user: null};
     case AuthAction.LOGIN_START:
       return  {...state, authError: null, loading: true};
-    case AuthAction.LOGIN_FAIL:
+    case AuthAction.AUTHENTICATE_FAIL:
       return {...state, user: null, authError: action.payload, loading: false};
     default:
       return state
