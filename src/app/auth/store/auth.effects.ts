@@ -6,6 +6,7 @@ import {Router} from "@angular/router";
 
 import * as AuthAction from "./auth.actions";
 import {environment} from "../../../enviroments/environment";
+import { User } from "../user.model";
 
 export interface AuthResponseData {
   idToken: string;
@@ -18,6 +19,8 @@ export interface AuthResponseData {
 
 const handleAuthentication = (expiresIn: number, email: string, userId: string, token: string) => {
   const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
+  const user = new User(email, userId, token, expirationDate);
+  localStorage.setItem('userData', JSON.stringify(user));
   return new AuthAction.AuthenticateSuccess({
     email: email,
     userId: userId,
@@ -84,8 +87,37 @@ export class AuthEffects {
   );
 
   authRedirect = createEffect(() => this.actions$.pipe(ofType(AuthAction.AUTHENTICATE_SUCCESS, AuthAction.LOGOUT),
-    tap(() => this.router.navigate(['/'])),
+    tap(() => this.router.navigate(['/auth'])),
   ),{dispatch: false});
+
+  authLogout = createEffect(() => this.actions$.pipe(ofType(AuthAction.LOGOUT),
+    tap(() => localStorage.removeItem('userData')),
+  ),{dispatch: false});
+
+  autoLogin = createEffect(() => this.actions$.pipe(ofType(AuthAction.AUTO_LOGIN),
+    map(() => {
+      const userData: {
+        email: string;
+        id: string;
+        _token: string;
+        _tokenExpiredDate: string;
+      } = JSON.parse(localStorage.getItem('userData'));
+      if(!userData) {
+        return {type: 'DUMMY'};
+      }
+      const loadedUser = new User(userData.email, userData.id, userData._token, new Date(userData._tokenExpiredDate));
+      if(loadedUser.token) {
+        return new AuthAction.AuthenticateSuccess({
+          email:loadedUser.email,
+          userId: loadedUser.id,
+          token: loadedUser.token,
+          expirationDate: new Date(userData._tokenExpiredDate)
+        })
+        // const expirationDuration = new Date(userData._tokenExpiredDate).getTime() - new Date().getTime();
+        // this.autoLogout(expirationDuration);
+      }
+      return {type: 'DUMMY'};
+    })))
 
   constructor(private actions$: Actions, private http: HttpClient, private router:Router) {}
 }
