@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule} from "@angular/common/http";
 import {EffectsModule} from "@ngrx/effects";
 import {StoreModule} from "@ngrx/store";
+import {StoreDevtoolsModule} from "@ngrx/store-devtools";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -13,6 +14,7 @@ import {LoggingService} from "./logging.service";
 import {shoppingListReducer} from "./shopping-list/store/shoping-list.reducer";
 import {authReducer} from "./auth/store/auth.reducer";
 import {AuthEffects} from "./auth/store/auth.effects";
+import {environment} from "../enviroments/environment";
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import {AuthEffects} from "./auth/store/auth.effects";
     AppRoutingModule,
     StoreModule.forRoot({shoppingList: shoppingListReducer, auth: authReducer}),
     EffectsModule.forRoot([AuthEffects]),
+    StoreDevtoolsModule.instrument({logOnly: environment.production}),
     SharedModule,
     CoreModule,
   ],
