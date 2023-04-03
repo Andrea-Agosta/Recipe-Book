@@ -15,6 +15,7 @@ import {shoppingListReducer} from "./shopping-list/store/shoping-list.reducer";
 import {authReducer} from "./auth/store/auth.reducer";
 import {AuthEffects} from "./auth/store/auth.effects";
 import {environment} from "../enviroments/environment";
+import {StoreRouterConnectingModule} from "@ngrx/router-store";
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import {environment} from "../enviroments/environment";
     StoreModule.forRoot({shoppingList: shoppingListReducer, auth: authReducer}),
     EffectsModule.forRoot([AuthEffects]),
     StoreDevtoolsModule.instrument({logOnly: environment.production}),
+    StoreRouterConnectingModule.forRoot(),
     SharedModule,
     CoreModule,
   ],
