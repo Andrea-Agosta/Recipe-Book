@@ -5,7 +5,7 @@ import {Injectable} from "@angular/core";
 import {Router} from "@angular/router";
 
 import * as AuthAction from "./auth.actions";
-import {environment} from "../../../enviroments/environment";
+import {environment} from "../../../environments/environment";
 import { User } from "../user.model";
 import {AuthService} from "../auth.service";
 

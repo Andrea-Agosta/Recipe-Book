@@ -11,6 +11,7 @@ This application is a recipe book that allows users to register an account, logi
 - HTML
 - CSS
 - Bootstrap
+- Redux/NgRx
 
 ## Installation
 Clone the repository using the command 
