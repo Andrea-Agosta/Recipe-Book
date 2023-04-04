@@ -1,7 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
-import {Store} from "@ngrx/store";
 import {map, Subscription} from 'rxjs';
+import {Store} from "@ngrx/store";
 
 import { Recipe } from '../recipe.model';
 import * as fromApp from "../../store/app.reducer";
